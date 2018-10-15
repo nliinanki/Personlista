@@ -10,7 +10,7 @@ namespace Personlista.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("PersonRegisterList", "PersonRegister");
         }
 
         public ActionResult About()

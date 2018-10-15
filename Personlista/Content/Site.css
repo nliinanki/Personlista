@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+h1 {
+    color: white;
+    text-align:center;
+}
