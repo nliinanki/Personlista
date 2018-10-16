@@ -12,7 +12,15 @@ namespace Personlista.Models
         /// </summary>
         public class SearchRequest
         {
+            /// <summary>
+            /// The number of item to display before splitting to new page
+            /// </summary>
+            public int? NumberToDisplayPerPage { get; set; }
 
+            /// <summary>
+            /// Search in list
+            /// </summary>
+            public string SearchString { get; set; }
         }
     }
 }

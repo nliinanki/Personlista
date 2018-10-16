@@ -1,7 +1,29 @@
 ﻿@model Personlista.ViewModel.PersonRegisterListViewData
 
-<div style="background-color: red">
+<table style="width: 100%;">
+    <tr>
+        <th width="10%">Id</th>
+        <th width="30%">Namn</th>
+        <th width="20%">Personnummer</th>
+        <th>Persontyp</th>
+    </tr>
 
-<h2>PersonRegisterListResult</h2>
-</div>
 
+    @foreach (var item in Model.PersonList)
+    {
+        <tr>
+            <td>
+                <p>@item.Id</p>
+            </td>
+            <td>
+                <p>@item.Firstname @item.Lastname</p>
+            </td>
+            <td>
+                <p>@item.Socialnumber</p>
+            </td>
+            <td>
+                <p>@item.PersonCategory</p>
+            </td>
+        </tr>
+    }
+</table>

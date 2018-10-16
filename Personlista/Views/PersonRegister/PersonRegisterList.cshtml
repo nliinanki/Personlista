@@ -1,14 +1,45 @@
-﻿
+﻿@model Personlista.ViewModel.PersonRegisterListViewData
+
 @{
     ViewBag.Title = "PersonRegisterList";
 }
 
-<h2>PersonRegisterList</h2>
+<h2>Lista över påhittade personer</h2>
 
-<div class="panel panel-heading" style="background-color: aqua">
+<div>
+    <div style="float:left; padding: 15px;">
+        @Html.TextBoxFor(model => model.SearchRequest.SearchString, new { placeHolder = "Sök" })
+    </div>
+
+    <div style="float:left; padding: 15px;">
+        <p>Antal resultat per sida</p>
+
+        <label>
+            @Html.RadioButtonFor(model => model.SearchRequest.NumberToDisplayPerPage, 10)
+            10 st
+        </label>
+        <label>
+            @Html.RadioButtonFor(model => model.SearchRequest.NumberToDisplayPerPage, 50)
+            50 st
+        </label>
+        <label>
+            @Html.RadioButtonFor(model => model.SearchRequest.NumberToDisplayPerPage, 100)
+            100 st
+        </label>
+    </div>
+
+    <div style="float:left; padding: 15px;">
+       <button class="btn btn-success">Spara alla nya poster</button>
+    </div>
+</div>
+
+<div style="clear: both;">
+    <p>Lägg till en ny person</p>
 
 </div>
 
-<div class="panel-body" style="background-color: #808080">
-    @Html.Partial("PersonRegisterListResult")
+
+
+<div style="background-color: #eeeff8">
+    @Html.Action("PersonRegisterListResult", Model.SearchRequest)
 </div>
