@@ -1,6 +1,16 @@
 ﻿@model Personlista.ViewModel.PersonRegisterListResultViewData
 
-<h3>Lista över påhittade personer - (@Model.ListCount st)</h3>
+
+<h3>Lista över påhittade personer</h3>
+<p>(Antal träffar: @Model.ListCount st) (Antal sidor: @Model.PageCount)</p>
+<ul class="pagination">
+    @foreach (var item in Model.PageNumbers)
+    {
+        <li class="page-item">
+            <a class="page-link">@item</a>
+        </li>
+    }
+</ul>
 
 <table style="width: 100%; background-color: #eeeff8;">
     <thead>
@@ -14,8 +24,8 @@
 
     <tbody>
         @foreach (var item in Model.PersonList)
-        {
-            <tr title="#@item.Id" style="border-top: 1px solid #ccc">
+            {
+            <tr style="border-top: 1px solid #ccc">
                 <td>
                     <p>@item.Firstname @item.Lastname</p>
                 </td>

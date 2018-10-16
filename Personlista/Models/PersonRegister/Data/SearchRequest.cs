@@ -11,11 +11,6 @@ namespace Personlista.Models
     /// </summary>
     public class SearchRequest
     {
-        ///// <summary>
-        ///// The number of item to display before splitting to new page
-        ///// </summary>
-        //public int? NumberToDisplayPerPage { get; set; }
-
         /// <summary>
         /// Search in list
         /// </summary>
@@ -25,6 +20,11 @@ namespace Personlista.Models
         /// The number of item to display before splitting to new page
         /// </summary>
         public DisplayNumber DisplayNumber { get; set; }
+
+        /// <summary>
+        /// The page number
+        /// </summary>
+        public int? PageNumber { get; set; }
 
     }
 

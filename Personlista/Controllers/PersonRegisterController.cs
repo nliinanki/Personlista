@@ -41,6 +41,9 @@ namespace Personlista.Controllers
 
             viewData.PersonList = list.Persons;
             viewData.ListCount = list.ListCount;
+            viewData.PageCount = list.PageCount;
+            viewData.CurrentPage = list.CurrentPage;
+            viewData.PageNumbers = list.PageNumbers;
 
             return viewData;
         }

@@ -14,7 +14,6 @@ namespace Personlista.Models
     /// </summary>
     public static partial class PersonRegister
     {
-
         /// <summary>
         /// Get list of persons
         /// </summary>
@@ -24,11 +23,11 @@ namespace Personlista.Models
 
             //Get data
             var arrayOfPersons = FakeDatabase.ReadXmlFile();
-            var personList = arrayOfPersons.Persons;
-
-            //Count the list before take
-            result.ListCount = personList.Count();
-
+            var personList = arrayOfPersons.Persons.Where(x => 
+                !string.IsNullOrEmpty(x.Firstname) &&
+                !string.IsNullOrEmpty(x.Lastname) && 
+                !string.IsNullOrEmpty(x.PersonCategory) &&
+                !string.IsNullOrEmpty(x.Socialnumber));
 
             //Filter by search string in list
             if (!string.IsNullOrEmpty(searchRequest.SearchString))
@@ -40,23 +39,40 @@ namespace Personlista.Models
                     x.Socialnumber.ToLower().Contains(searchRequest.SearchString.ToLower())).ToList();
             }
 
-
             //Filter number of items per page
+            var take = 0;
             switch (searchRequest.DisplayNumber)
             {
                 case DisplayNumber.Display50:
-                    personList = personList.Take(50).ToList();
+                    take = 50;
                     break;
                 case DisplayNumber.Display100:
-                    personList = personList.Take(100).ToList();
+                    take = 100;
                     break;
                 default:
-                    personList = personList.Take(10).ToList();
+                    take = 10;
                     break;
             }
 
-            result.Persons = personList;
+            //Number of persons found
+            var foundPersons = personList.Count();
+            result.ListCount = foundPersons;
 
+            //Number of pages
+            var numberOfPages = (foundPersons + take - 1) / take;
+            result.PageCount = numberOfPages;
+
+            //List of pagenumbers
+
+
+            //1,2,3,4,5 Sista
+            //Första, 2,3,4,5,6, Sista
+            //Första, 3,4,5,6,7, Sista   
+            var listOfPageNumbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            result.PageNumbers = listOfPageNumbers;
+
+            //Return list
+            result.Persons = personList.Take(take).ToList();
             return result;
         }
     }

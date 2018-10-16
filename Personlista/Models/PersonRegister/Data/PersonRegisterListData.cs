@@ -21,6 +21,21 @@ namespace Personlista.Models
             /// Count of the list
             /// </summary>
             public int ListCount { get; set; }
+
+            /// <summary>
+            /// Count of pages
+            /// </summary>
+            public int PageCount { get; set; }
+
+            /// <summary>
+            /// PageNumbers list
+            /// </summary>
+            public List<int> PageNumbers { get; set; }
+
+            /// <summary>
+            /// The current page number
+            /// </summary>
+            public int CurrentPage { get; set; }
         }
     }
 }
