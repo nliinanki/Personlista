@@ -15,35 +15,49 @@ namespace Personlista.Models
     public static partial class PersonRegister
     {
 
-
-
         /// <summary>
         /// Get list of persons
         /// </summary>
-        public static List<Person> GetPersonRegisterList(SearchRequest searchRequest)
+        public static PersonRegisterListData GetPersonRegisterList(SearchRequest searchRequest)
         {
+            var result = new PersonRegisterListData();
+
             //Get data
             var arrayOfPersons = FakeDatabase.ReadXmlFile();
             var personList = arrayOfPersons.Persons;
 
+            //Count the list before take
+            result.ListCount = personList.Count();
 
-            //Search in list
 
-       
-            //Filter items per page if set
-            if (searchRequest.NumberToDisplayPerPage.HasValue)
+            //Filter by search string in list
+            if (!string.IsNullOrEmpty(searchRequest.SearchString))
             {
-                personList = personList.Take(searchRequest.NumberToDisplayPerPage.Value).ToList();   
+                personList = personList.Where(x => 
+                    x.Firstname.ToLower().Contains(searchRequest.SearchString.ToLower()) ||
+                    x.Lastname.ToLower().Contains(searchRequest.SearchString.ToLower()) ||
+                    x.PersonCategory.ToLower().Contains(searchRequest.SearchString.ToLower()) ||
+                    x.Socialnumber.ToLower().Contains(searchRequest.SearchString.ToLower())).ToList();
             }
-            else
+
+
+            //Filter number of items per page
+            switch (searchRequest.DisplayNumber)
             {
-                personList = personList.Take(10).ToList();
+                case DisplayNumber.Display50:
+                    personList = personList.Take(50).ToList();
+                    break;
+                case DisplayNumber.Display100:
+                    personList = personList.Take(100).ToList();
+                    break;
+                default:
+                    personList = personList.Take(10).ToList();
+                    break;
             }
 
+            result.Persons = personList;
 
-
-
-            return personList.ToList();
+            return result;
         }
     }
 }

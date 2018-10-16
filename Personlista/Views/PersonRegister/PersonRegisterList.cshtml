@@ -1,45 +1,97 @@
-﻿@model Personlista.ViewModel.PersonRegisterListViewData
+﻿@using Personlista.Models
+@model Personlista.ViewModel.PersonRegisterListViewData
 
-@{
-    ViewBag.Title = "PersonRegisterList";
+@using (Html.BeginForm("PersonRegisterListResult", "PersonRegister", FormMethod.Post, new { role = "form", id = "personSearchForm" }))
+{
+
+    <div style="margin-top:30px;">
+        <div style="float:left; padding: 15px;">
+            <p>Filtrera efter sökord</p>
+            @Html.TextBoxFor(model => model.SearchRequest.SearchString, new { id="searchString", placeHolder = "Sök" })
+        </div>
+
+        <div style="float:left; padding: 15px;">
+            <p>Antal resultat per sida</p>
+
+            <label>
+                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display10)
+                10 st
+            </label>
+            <label>
+                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display50)
+                50 st
+            </label>
+            <label>
+                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display100)
+                100 st
+            </label>
+        </div>
+    </div>
+
+    <div style="clear: both;">
+        <div style="float:left; padding: 15px;">
+            <p>Lägg till en ny person</p>
+            @Html.TextBox("CreateFirstName", "", new { placeHolder = "Förnamn" })
+            @Html.TextBox("CreateLastName", "", new { placeHolder = "Efternamn" })
+            @Html.TextBox("CreateSocialSecurityNumber", "", new { placeHolder = "Personnummer" })
+            @Html.TextBox("CreatePersonType", "", new { placeHolder = "Persontyp" })
+        </div>
+
+        <div style="float:left; padding: 15px;">
+            <button class="btn btn-success" type="button">Spara alla nya poster</button>
+        </div>
+    </div>
 }
 
-<h2>Lista över påhittade personer</h2>
-
-<div>
-    <div style="float:left; padding: 15px;">
-        @Html.TextBoxFor(model => model.SearchRequest.SearchString, new { placeHolder = "Sök" })
-    </div>
-
-    <div style="float:left; padding: 15px;">
-        <p>Antal resultat per sida</p>
-
-        <label>
-            @Html.RadioButtonFor(model => model.SearchRequest.NumberToDisplayPerPage, 10)
-            10 st
-        </label>
-        <label>
-            @Html.RadioButtonFor(model => model.SearchRequest.NumberToDisplayPerPage, 50)
-            50 st
-        </label>
-        <label>
-            @Html.RadioButtonFor(model => model.SearchRequest.NumberToDisplayPerPage, 100)
-            100 st
-        </label>
-    </div>
-
-    <div style="float:left; padding: 15px;">
-       <button class="btn btn-success">Spara alla nya poster</button>
-    </div>
-</div>
-
-<div style="clear: both;">
-    <p>Lägg till en ny person</p>
-
-</div>
-
-
-
-<div style="background-color: #eeeff8">
+<div id="searchResult" style="clear: both; border: 1px solid #ccc; padding: 15px; margin: 15px;">
     @Html.Action("PersonRegisterListResult", Model.SearchRequest)
 </div>
+
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script>
+    //Detect change in form
+    $('#personSearchForm input').on("change", function () {
+        var url = '@Url.Action("PersonRegisterListResult", "PersonRegister")';
+
+        var searchRequest = {
+            DisplayNumber: $('input[name="SearchRequest.DisplayNumber"]:checked').val(),
+            SearchString: $("#searchString").val()
+        }
+
+        callActionAndRefreshData(searchRequest, url);
+    });
+
+    //Ajax
+    var callActionAndRefreshData = function (request, url) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: request,
+            success: function (data) {
+                $('#searchResult').html(data);
+            }
+        });
+    };
+
+
+    @*// On search form submit
+    $('#personSearchForm').on("submit", function (e) {
+        e.preventDefault();
+
+        var searchRequest = {
+            DisplayNumber: $('input[name="SearchRequest.DisplayNumber"]:checked').val(),
+            SearchString: $("#searchString").val()
+        }
+
+        console.log("submitting search", searchRequest);
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PersonRegisterListResult", "PersonRegister")',
+            data: searchRequest,
+            success: function (data) {
+                $("#searchResult").html(data);
+            }
+        });
+    });*@
+</script>

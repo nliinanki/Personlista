@@ -1,29 +1,34 @@
-﻿@model Personlista.ViewModel.PersonRegisterListViewData
+﻿@model Personlista.ViewModel.PersonRegisterListResultViewData
 
-<table style="width: 100%;">
-    <tr>
-        <th width="10%">Id</th>
-        <th width="30%">Namn</th>
-        <th width="20%">Personnummer</th>
-        <th>Persontyp</th>
-    </tr>
+<h3>Lista över påhittade personer - (@Model.ListCount st)</h3>
 
-
-    @foreach (var item in Model.PersonList)
-    {
+<table style="width: 100%; background-color: #eeeff8;">
+    <thead>
         <tr>
-            <td>
-                <p>@item.Id</p>
-            </td>
-            <td>
-                <p>@item.Firstname @item.Lastname</p>
-            </td>
-            <td>
-                <p>@item.Socialnumber</p>
-            </td>
-            <td>
-                <p>@item.PersonCategory</p>
-            </td>
+            <th width="30%">Namn</th>
+            <th width="30%">Personnummer</th>
+            <th width="30%">Persontyp</th>
+            <th></th>
         </tr>
-    }
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.PersonList)
+        {
+            <tr title="#@item.Id" style="border-top: 1px solid #ccc">
+                <td>
+                    <p>@item.Firstname @item.Lastname</p>
+                </td>
+                <td>
+                    <p>@item.Socialnumber</p>
+                </td>
+                <td>
+                    <p>@item.PersonCategory</p>
+                </td>
+                <td>
+                    <button id="saveOnePerson" class="btn btn-success" type="button" style="padding: 5px;">Spara</button>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

@@ -12,6 +12,15 @@ namespace Personlista.Models
         /// </summary>
         public class PersonRegisterListData
         {
+            /// <summary>
+            /// List of persons 
+            /// </summary>
+            public List<Database.Person> Persons { get; set; }
+
+            /// <summary>
+            /// Count of the list
+            /// </summary>
+            public int ListCount { get; set; }
         }
     }
 }
