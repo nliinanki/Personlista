@@ -1,7 +1,13 @@
 ﻿@using Personlista.Models
 @model Personlista.ViewModel.PersonRegisterListViewData
 
-@using (Html.BeginForm("PersonRegisterListResult", "PersonRegister", FormMethod.Post, new { role = "form", id = "personSearchForm" }))
+@{ 
+    var url = @Url.Action("Action", "Controller");
+}
+
+
+@using (Html.BeginForm("PersonRegisterListResult", "PersonRegister", FormMethod.Post, 
+    new { role = "form", id = "personSearchForm", data_request_url = "@url" }))
 {
 
     <div style="margin-top:30px;">
@@ -45,31 +51,5 @@
     @Html.Action("PersonRegisterListResult", Model.SearchRequest)
 </div>
 
-
-
 <script src="~/scripts/jquery-1.10.2.min.js"></script>
-<script>
-    //Detect change in form
-    $('#personSearchForm input').on("change", function () {
-        var url = '@Url.Action("PersonRegisterListResult", "PersonRegister")';
-
-        var searchRequest = {
-            DisplayNumber: $('input[name="SearchRequest.DisplayNumber"]:checked').val(),
-            SearchString: $("#searchString").val()
-        }
-
-        callActionAndRefreshData(searchRequest, url);
-    });
-
-    //Ajax
-    var callActionAndRefreshData = function (request, url) {
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: request,
-            success: function (data) {
-                $('#searchResult').html(data);
-            }
-        });
-    };
-</script>
+<script src="~/scripts/custom/formscript.js"></script>

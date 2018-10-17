@@ -2,15 +2,36 @@
 
 
 <h3>Lista över påhittade personer</h3>
-<p>(Antal träffar: @Model.ListCount st) (Antal sidor: @Model.PageCount)</p>
-<ul class="pagination">
-    @foreach (var item in Model.PageNumbers)
-    {
-        <li class="page-item">
-            <a class="page-link">@item</a>
-        </li>
-    }
-</ul>
+<p>Antal träffar: @Model.ListCount st</p>
+
+@if (Model.LastPage > 1)
+{
+    <ul class="pagination">
+
+        @if (Model.CurrentPage > 6)
+        {
+            <li class="page-item">
+                <a class="page-link" data-page-index="1" style="margin-right:15px;"> 1 </a>
+            </li>
+        }
+
+        @for (int i = Model.FirstPage; i <= Model.LastPage; i++)
+        {
+            var activePage = i == Model.CurrentPage ? "active" : "";
+
+            <li class="page-item @activePage">
+                <a href="#"  class="page-link" data-page-index="@i">@i</a>
+            </li>
+        }
+        @if (Model.LastPage < Model.PageCount)
+        {
+            <li class="page-item">
+                <a class="page-link" data-page-index="@Model.PageCount" style="margin-left:15px;"> @Model.PageCount </a>
+            </li>
+        }
+
+    </ul>
+}
 
 <table style="width: 100%; background-color: #eeeff8;">
     <thead>
@@ -27,7 +48,7 @@
             {
             <tr style="border-top: 1px solid #ccc">
                 <td>
-                    <p>@item.Firstname @item.Lastname</p>
+                    <p>@item.Id: @item.Firstname @item.Lastname</p>
                 </td>
                 <td>
                     <p>@item.Socialnumber</p>
@@ -42,3 +63,6 @@
         }
     </tbody>
 </table>
+
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/custom/formscript.js"></script>

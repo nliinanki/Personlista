@@ -62,17 +62,36 @@ namespace Personlista.Models
             var numberOfPages = (foundPersons + take - 1) / take;
             result.PageCount = numberOfPages;
 
-            //List of pagenumbers
+            //Pagination
+            var currentPage = searchRequest.PageNumber.HasValue ? searchRequest.PageNumber.Value : 1;
+            var startPage = currentPage - 5;
+            var endPage = currentPage + 4;
 
+            if (startPage <= 0)
+            {
+                endPage -= (startPage - 1);
+                startPage = 1;
+            }
 
-            //1,2,3,4,5 Sista
-            //Första, 2,3,4,5,6, Sista
-            //Första, 3,4,5,6,7, Sista   
-            var listOfPageNumbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-            result.PageNumbers = listOfPageNumbers;
+            if (endPage > numberOfPages)
+            {
+                endPage = numberOfPages;
+
+                if (endPage > 10)
+                {
+                    startPage = endPage - 9;
+                }
+            }
+
+            result.CurrentPage = currentPage;
+            result.FirstPage = startPage;
+            result.LastPage = endPage;
+
 
             //Return list
-            result.Persons = personList.Take(take).ToList();
+            var skip = (currentPage - 1) * take;
+
+            result.Persons = personList.Skip(skip).Take(take).ToList();
             return result;
         }
     }

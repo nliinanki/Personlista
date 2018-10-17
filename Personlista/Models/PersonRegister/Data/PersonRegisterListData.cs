@@ -18,7 +18,7 @@ namespace Personlista.Models
             public List<Database.Person> Persons { get; set; }
 
             /// <summary>
-            /// Count of the list
+            /// Count of the found persons in list
             /// </summary>
             public int ListCount { get; set; }
 
@@ -28,14 +28,19 @@ namespace Personlista.Models
             public int PageCount { get; set; }
 
             /// <summary>
-            /// PageNumbers list
-            /// </summary>
-            public List<int> PageNumbers { get; set; }
-
-            /// <summary>
-            /// The current page number
+            /// The current page number in pageination
             /// </summary>
             public int CurrentPage { get; set; }
+
+            /// <summary>
+            /// The first page number in pageination
+            /// </summary>
+            public int FirstPage { get; set; }
+
+            /// <summary>
+            /// The last page number in pageination
+            /// </summary>
+            public int LastPage { get; set; }
         }
     }
 }

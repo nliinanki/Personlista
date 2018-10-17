@@ -9,14 +9,19 @@ namespace Personlista.ViewModel
     public class PersonRegisterListResultViewData
     {
         /// <summary>
-        /// The current page number
+        /// The current page number in pageination
         /// </summary>
         public int CurrentPage { get; set; }
 
         /// <summary>
-        /// Count of results in list
+        /// First number (after 1) in pageination
         /// </summary>
-        public int ListCount { get; set; }
+        public int FirstPage { get; set; }
+
+        /// <summary>
+        /// Last number in pageination
+        /// </summary>
+        public int LastPage { get; set; }
 
         /// <summary>
         /// Count of pages the result generates
@@ -24,14 +29,14 @@ namespace Personlista.ViewModel
         public int PageCount { get;  set; }
 
         /// <summary>
-        /// List of page numbers to display
-        /// </summary>
-        public List<int> PageNumbers { get; set; }
-
-        /// <summary>
         /// PersonList
         /// </summary>
         public List<Database.Person> PersonList { get; set; }
+
+        /// <summary>
+        /// Count of results in list
+        /// </summary>
+        public int ListCount { get; set; }
 
         /// <summary>
         /// SearchRequest

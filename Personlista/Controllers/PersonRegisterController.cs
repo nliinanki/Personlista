@@ -43,7 +43,8 @@ namespace Personlista.Controllers
             viewData.ListCount = list.ListCount;
             viewData.PageCount = list.PageCount;
             viewData.CurrentPage = list.CurrentPage;
-            viewData.PageNumbers = list.PageNumbers;
+            viewData.FirstPage = list.FirstPage;
+            viewData.LastPage = list.LastPage;
 
             return viewData;
         }
@@ -54,6 +55,7 @@ namespace Personlista.Controllers
         /// <returns></returns>
         public ActionResult CreateNewPerson()
         {
+            //todo 
             var viewData = GetPersonListViewData(new SearchRequest());
 
             var person = PersonRegister.Create();
@@ -68,6 +70,7 @@ namespace Personlista.Controllers
         [HttpPost]
         public ActionResult SavePerson()
         {
+            //todo 
             var viewData = GetPersonListViewData(new SearchRequest());
 
             PersonRegister.Save(0);
@@ -82,6 +85,7 @@ namespace Personlista.Controllers
         [HttpPost]
         public ActionResult SaveAllNewPersons()
         {
+            //todo 
             var viewData = GetPersonListViewData(new SearchRequest());
 
             PersonRegister.SaveAllNew(new List<int>());
