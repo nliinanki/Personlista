@@ -26,44 +26,51 @@ $(document).on('click', '.saveOnePerson', function () {
         LastName: $(this).closest('.newRow').find('.createLname').data("create-lname"),
         PersonNumber: $(this).closest('.newRow').find('.createPnumber').data("create-pnumber"),
         PersonType: $(this).closest('.newRow').find('.createPtype').data("create-ptype")
-    }
-    console.log(person);
+    };
 
-    var url = $('#personTable').data('url-one');
     setTimeout(function () {
-        PostToSaveAction(person, url);
+        var url = $('#personTable').data('url-one');
+        PostToSaveAction(url, person, null);
     }, 200)
 });
 
 //Save all persons click
 $(document).on('click', '#saveAllNewPersonsBtn', function () {
-    //Hidden inputs
-    $('.createFname').each(function (i, obj) {
-        console.log(i, obj);
+
+    //Get all new rows
+    var listOfPersons = [];
+    $('.newRow').each(function (i, obj) {
+        var person = {
+            FirstName: $(this).find('.createFname').data("create-fname"),
+            LastName: $(this).find('.createLname').data("create-lname"),
+            PersonNumber: $(this).find('.createPnumber').data("create-pnumber"),
+            PersonType: $(this).find('.createPtype').data("create-ptype")
+        };
+        listOfPersons.push(person);
     });
 
-    //$.each($('#saveTreatmentsForm').serializeArray(), function (i, kv) {
-    //    var name = kv.name.substring(kv.name.indexOf('.') + 1);
-    //    editData[name] = $.makeArray(editData[name]);
-    //    editData[name].push(kv.value);
-    //});
 
-    //var hiddeninput = '<input id="CreateRequest_ListOfPersons_0__FirstName" name="CreateRequest.ListOfPersons[0].FirstName" type="hidden" value="">';
+    setTimeout(function () {
+        var url = $('#personTable').data('url-many');
+        PostToSaveAction(url, null, listOfPersons);
+    }, 200)
+
 });
 
 
 //Ajax save 
-function PostToSaveAction(person, url) {
+function PostToSaveAction(url, person, personList) {
     var searchRequest = {
         DisplayNumber: $('input[name="SearchRequest.DisplayNumber"]:checked').val(),
         SearchString: $('#searchString').val(),
         PageNumber: $(this).data('page-index')
-    }
+    };
 
     var createRequest = {
         SearchRequest: searchRequest,
         CreatedPerson: person,
-    }
+        ListOfPersons: personList
+    };
 
     $.ajax({
         type: "POST",

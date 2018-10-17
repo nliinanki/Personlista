@@ -20,8 +20,7 @@ namespace Personlista.Models
             var personId = arrayOfPersons.Persons.Count() +1;
 
             //Get file
-            //var path = HttpContext.Current.Server.MapPath("/Content/Files/personer.xml");
-            var path = HttpContext.Current.Server.MapPath("/Content/Files/XMLFile1.xml");
+            var path = HttpContext.Current.Server.MapPath("/Content/Files/personer.xml");
             XDocument doc = XDocument.Load(path);
             XElement root = new XElement("ArrayOfPerson");
 
@@ -42,8 +41,6 @@ namespace Personlista.Models
         /// </summary>
         public static void SaveAllNew(CreateRequest createRequest)
         {
-            //Todo: null check
-
             foreach (var person in createRequest.ListOfPersons)
             {
                 Save(person);
@@ -53,8 +50,6 @@ namespace Personlista.Models
 
         public static void SaveOneNew(CreateRequest createRequest)
         {
-            //Todo: null check
-
             Save(createRequest.CreatedPerson);
         }
 
