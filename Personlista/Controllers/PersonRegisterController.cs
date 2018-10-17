@@ -71,10 +71,8 @@ namespace Personlista.Controllers
         /// <returns></returns>
         [HttpPost]
         public ActionResult SaveAllNewPersons(CreateRequest createRequests)
-        {
-            //todo 
-
-            PersonRegister.SaveAllNew(createRequests);
+        {            
+            //PersonRegister.SaveAllNew(createRequests);
 
             var viewData = GetPersonListViewData(new SearchRequest());
             return PartialView("PersonRegisterListResult", viewData);

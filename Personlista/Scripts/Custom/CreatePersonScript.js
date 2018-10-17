@@ -1,5 +1,5 @@
 ﻿
-//On add new person btn
+//Add new person to table
 $('#addPersonBtn').on('click', function () {
     var person = {
         FirstName: $('#CreateFirstName').val(),
@@ -7,38 +7,50 @@ $('#addPersonBtn').on('click', function () {
         PersonNumber: $('#CreateSocialSecurityNumber').val(),
         PersonType: $('#CreatePersonType').val()
     }
+    var tableRow = '<tr class="newRow" style="border-top: 1px solid #ccc"><td><p><span data-create-fname="' + person.FirstName + '" class="createFname">' + person.FirstName +
+        '</span><span data-create-lname="' + person.LastName + '"class="createLname"> ' + person.LastName +
+        '</span></p></td><td><p data-create-pnumber="' + person.PersonNumber + '"class="createPnumber">' + person.PersonNumber +
+        '</p></td><td><p data-create-ptype="' + person.PersonType + '"class="createPtype">' + person.PersonType +
+        '</p></td><td><button class="saveOnePerson btn btn-success" type="button" style="padding: 5px;">Spara</button></td></tr>';
 
     setTimeout(function () {
         //Append person to first row in table
-        var tableRow = '<tr style="border-top: 1px solid #ccc"><td><p><span class="createFname" data-fname=' + person.FirstName + '>' + person.FirstName
-            + '</span><span class="createLname"> ' + person.LastName +
-            '</span></p></td><td><p class="createPnumber">' + person.PersonNumber + '</p></td><td><p class="createPtype">' + person.PersonType +
-            '</p></td><td><button class="saveOnePerson btn btn-success" type="button" style="padding: 5px;">Spara</button></td></tr>'
-
         $('#personTable > tbody').prepend(tableRow);
+    }, 200)
+});
 
-        var url = $('#personTable').data('url-one');
+//Save one person click
+$(document).on('click', '.saveOnePerson', function () {
+    var person = {
+        FirstName: $(this).closest('.newRow').find('.createFname').data("create-fname"),
+        LastName: $(this).closest('.newRow').find('.createLname').data("create-lname"),
+        PersonNumber: $(this).closest('.newRow').find('.createPnumber').data("create-pnumber"),
+        PersonType: $(this).closest('.newRow').find('.createPtype').data("create-ptype")
+    }
+    console.log(person);
+
+    var url = $('#personTable').data('url-one');
+    setTimeout(function () {
         PostToSaveAction(person, url);
     }, 200)
 });
 
-//On save one person click
-$(document).on('click', '.saveOnePerson', function() {
+//Save all persons click
+$(document).on('click', '#saveAllNewPersonsBtn', function () {
+    //Hidden inputs
+    $('.createFname').each(function (i, obj) {
+        console.log(i, obj);
+    });
 
-    var person = {
-        FirstName: $("#personTable").find('#createFname').data('fname'),
-        LastName: $("#personTable").find('#createLname').text(),
-        PersonNumber: $("#personTable").find('#createPnumber').text(),
-        PersonType: $("#personTable").find('#createPtype').text()
-    }
-    console.log($("#personTable").find('#createFname'), $("#personTable").find('#createFname').data('fname'));
+    //$.each($('#saveTreatmentsForm').serializeArray(), function (i, kv) {
+    //    var name = kv.name.substring(kv.name.indexOf('.') + 1);
+    //    editData[name] = $.makeArray(editData[name]);
+    //    editData[name].push(kv.value);
+    //});
 
-    var url = $('#personTable').data('url-one');
-
-    setTimeout(function () {
-        //PostToSaveAction(person, url);
-    }, 200)
+    //var hiddeninput = '<input id="CreateRequest_ListOfPersons_0__FirstName" name="CreateRequest.ListOfPersons[0].FirstName" type="hidden" value="">';
 });
+
 
 //Ajax save 
 function PostToSaveAction(person, url) {
@@ -62,3 +74,6 @@ function PostToSaveAction(person, url) {
         }
     });
 };
+
+
+

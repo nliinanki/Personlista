@@ -26,16 +26,16 @@
             </label>
         </div>
 
-        <button class="btn btn-success" type="button" style="float:right;">Spara alla nya poster</button>
+        <button id="saveAllNewPersonsBtn" class="btn btn-success" type="button" style="float:right;">Spara alla nya poster</button>
     </div>
 
     <div style="clear: both; padding:15px;">
         <p>Lägg till en ny person</p>
 
-        @Html.TextBox("CreateFirstName", "", new { placeholder = "Förnamn", @class = "createInput" })
-        @Html.TextBox("CreateLastName", "", new { placeholder = "Efternamn", @class = "createInput" })
-        @Html.TextBox("CreateSocialSecurityNumber", "", new { placeholder = "Personnummer", @class = "createInput" })
-        @Html.TextBox("CreatePersonType", "", new { placeholder = "Persontyp", @class = "createInput" })
+        @Html.TextBoxFor(model => model.CreateRequest.CreatedPerson.FirstName, new {id= "CreateFirstName", placeholder = "Förnamn", @class = "createInput" })
+        @Html.TextBoxFor(model => model.CreateRequest.CreatedPerson.LastName, new {id = "CreateLastName", placeholder = "Efternamn", @class = "createInput" })
+        @Html.TextBoxFor(model => model.CreateRequest.CreatedPerson.PersonNumber, new { id = "CreateSocialSecurityNumber", placeholder = "Personnummer", @class = "createInput" })
+        @Html.TextBoxFor(model => model.CreateRequest.CreatedPerson.PersonType, new { id = "CreatePersonType", placeholder = "Persontyp", @class = "createInput" })
         <button id="addPersonBtn" class="btn btn-info" type="button" style="padding:5px;"> Lägg till </button>
     </div>
 }

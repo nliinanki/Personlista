@@ -18,4 +18,11 @@
     <Socialnumber />
     <PersonCategory />
   </Person>
+  <Person>
+    <ID>46182</ID>
+    <Firstname>Kalle</Firstname>
+    <Lastname>Anka</Lastname>
+    <Socialnumber>167-344</Socialnumber>
+    <PersonCategory>Ankeborg</PersonCategory>
+  </Person>
 </ArrayOfPerson>
