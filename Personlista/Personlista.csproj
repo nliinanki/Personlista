@@ -173,7 +173,7 @@
     </Compile>
     <Compile Include="Models\PersonRegister\Commands\Create.cs" />
     <Compile Include="Models\PersonRegister\Commands\Save.cs" />
-    <Compile Include="Models\PersonRegister\Commands\SaveAllNew.cs" />
+    <Compile Include="Models\PersonRegister\Data\CreateRequest.cs" />
     <Compile Include="Models\PersonRegister\Data\PersonRegisterListData.cs" />
     <Compile Include="Models\PersonRegister\Data\SearchRequest.cs" />
     <Compile Include="Models\PersonRegister\Query\GetPersonRegisterList.cs" />
@@ -186,6 +186,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Files\personer.xml" />
+    <Content Include="Content\Files\XMLFile1.xml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -193,6 +194,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Custom\CreatePersonScript.js" />
     <Content Include="Scripts\Custom\FormScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

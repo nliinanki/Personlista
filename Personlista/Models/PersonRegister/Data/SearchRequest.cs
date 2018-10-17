@@ -25,7 +25,6 @@ namespace Personlista.Models
         /// The page number
         /// </summary>
         public int? PageNumber { get; set; }
-
     }
 
     public enum DisplayNumber

@@ -1,5 +1,8 @@
 ﻿@model Personlista.ViewModel.PersonRegisterListResultViewData
-
+@{
+    var urlOne = @Url.Action("SavePerson", "PersonRegister");
+    var urlMany = @Url.Action("SaveAllNewPersons", "PersonRegister");
+}
 
 <h3>Lista över påhittade personer</h3>
 <p>Antal träffar: @Model.ListCount st</p>
@@ -33,7 +36,7 @@
     </ul>
 }
 
-<table style="width: 100%; background-color: #eeeff8;">
+<table id="personTable" data-url-one="@urlOne" data-url-many="@urlMany" style="width: 100%; background-color: #eeeff8;">
     <thead>
         <tr>
             <th width="30%">Namn</th>
@@ -57,12 +60,26 @@
                     <p>@item.PersonCategory</p>
                 </td>
                 <td>
-                    <button id="saveOnePerson" class="btn btn-success" type="button" style="padding: 5px;">Spara</button>
+
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<script src="~/scripts/jquery-1.10.2.min.js"></script>
-<script src="~/scripts/custom/formscript.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+    //Detect click on page number
+    $('.page-link').on('click', function () {
+        console.log("page-link");
+        var searchRequest = {
+            DisplayNumber: $('input[name="SearchRequest.DisplayNumber"]:checked').val(),
+            SearchString: $('#searchString').val(),
+            PageNumber: $(this).data('page-index')
+        }
+
+        setTimeout(function () {
+            CallActionAndRefreshData(searchRequest);
+        }, 200)
+    });
+</script>

@@ -12,5 +12,10 @@ namespace Personlista.ViewModel
         /// SearchRequest
         /// </summary>
         public SearchRequest SearchRequest { get; set; }
+
+        /// <summary>
+        /// CreateRequest
+        /// </summary>
+        public CreateRequest CreateRequest { get; set; }
     }
 }

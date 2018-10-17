@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Person>
+    <ID>1</ID>
+    <Firstname>Thomas</Firstname>
+    <Lastname>Dahl</Lastname>
+    <Socialnumber>19881231-1270</Socialnumber>
+    <PersonCategory>Något nytt</PersonCategory>
+  </Person>
+  <Person>
+    <Firstname>Niclas</Firstname>
+    <Lastname>Liinanki</Lastname>
+  </Person>
+  <Person>
+    <ID>46182</ID>
+    <Firstname>Niclas</Firstname>
+    <Lastname>Liinanki</Lastname>
+    <Socialnumber />
+    <PersonCategory />
+  </Person>
+</ArrayOfPerson>

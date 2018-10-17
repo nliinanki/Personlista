@@ -1,34 +1,27 @@
 ﻿@using Personlista.Models
 @model Personlista.ViewModel.PersonRegisterListViewData
 
-@{ 
-    var url = @Url.Action("Action", "Controller");
-}
-
-
-@using (Html.BeginForm("PersonRegisterListResult", "PersonRegister", FormMethod.Post, 
-    new { role = "form", id = "personSearchForm", data_request_url = "@url" }))
+@using (Html.BeginForm("PersonRegisterListResult", "PersonRegister", FormMethod.Post, new { role = "form", id = "personSearchForm" }))
 {
-
     <div style="margin-top:30px;">
         <div style="float:left; padding: 15px;">
             <p>Filtrera efter sökord</p>
-            @Html.TextBoxFor(model => model.SearchRequest.SearchString, new { id = "searchString", placeHolder = "Sök" })
+            @Html.TextBoxFor(model => model.SearchRequest.SearchString, new { id = "searchString", placeholder = "Sök", @class = "filterInput" })
         </div>
 
         <div style="float:left; padding: 15px;">
             <p>Antal resultat per sida</p>
 
             <label>
-                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display10)
+                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display10, new {@class = "filterInput" })
                 10 st
             </label>
             <label>
-                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display50)
+                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display50, new { @class = "filterInput" })
                 50 st
             </label>
             <label>
-                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display100)
+                @Html.RadioButtonFor(model => model.SearchRequest.DisplayNumber, DisplayNumber.Display100, new { @class = "filterInput" })
                 100 st
             </label>
         </div>
@@ -39,11 +32,11 @@
     <div style="clear: both; padding:15px;">
         <p>Lägg till en ny person</p>
 
-        @Html.TextBox("CreateFirstName", "", new { placeHolder = "Förnamn" })
-        @Html.TextBox("CreateLastName", "", new { placeHolder = "Efternamn" })
-        @Html.TextBox("CreateSocialSecurityNumber", "", new { placeHolder = "Personnummer" })
-        @Html.TextBox("CreatePersonType", "", new { placeHolder = "Persontyp" })
-        <button class="btn btn-info" type="button" style="padding:5px;"> Lägg till </button>
+        @Html.TextBox("CreateFirstName", "", new { placeholder = "Förnamn", @class = "createInput" })
+        @Html.TextBox("CreateLastName", "", new { placeholder = "Efternamn", @class = "createInput" })
+        @Html.TextBox("CreateSocialSecurityNumber", "", new { placeholder = "Personnummer", @class = "createInput" })
+        @Html.TextBox("CreatePersonType", "", new { placeholder = "Persontyp", @class = "createInput" })
+        <button id="addPersonBtn" class="btn btn-info" type="button" style="padding:5px;"> Lägg till </button>
     </div>
 }
 
@@ -51,5 +44,6 @@
     @Html.Action("PersonRegisterListResult", Model.SearchRequest)
 </div>
 
-<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="~/scripts/custom/formscript.js"></script>
+<script src="~/scripts/custom/createpersonscript.js"></script>

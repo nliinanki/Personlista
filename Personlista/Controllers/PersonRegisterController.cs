@@ -18,6 +18,7 @@ namespace Personlista.Controllers
         {
             var viewData = new PersonRegisterListViewData();
             viewData.SearchRequest = new SearchRequest { DisplayNumber = DisplayNumber.Display10 };
+            viewData.CreateRequest = new CreateRequest();
 
             return View(viewData);
         }
@@ -45,53 +46,39 @@ namespace Personlista.Controllers
             viewData.CurrentPage = list.CurrentPage;
             viewData.FirstPage = list.FirstPage;
             viewData.LastPage = list.LastPage;
+            viewData.SearchRequest = searchRequest;
 
             return viewData;
         }
 
-        /// <summary>
-        /// Create a new person in view
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult CreateNewPerson()
-        {
-            //todo 
-            var viewData = GetPersonListViewData(new SearchRequest());
-
-            var person = PersonRegister.Create();
-
-            return PartialView("PersonRegisterListResult", viewData);
-        }
 
         /// <summary>
-        /// 
+        /// Save one person
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult SavePerson()
+        public ActionResult SavePerson(CreateRequest createRequest)
         {
-            //todo 
+            PersonRegister.SaveOneNew(createRequest);
+
             var viewData = GetPersonListViewData(new SearchRequest());
-
-            PersonRegister.Save(0);
-
             return PartialView("PersonRegisterListResult", viewData);
         }
 
         /// <summary>
-        /// 
+        /// Save all persons
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult SaveAllNewPersons()
+        public ActionResult SaveAllNewPersons(CreateRequest createRequests)
         {
             //todo 
+
+            PersonRegister.SaveAllNew(createRequests);
+
             var viewData = GetPersonListViewData(new SearchRequest());
-
-            PersonRegister.SaveAllNew(new List<int>());
-
             return PartialView("PersonRegisterListResult", viewData);
         }
-
+         
     }
 }
