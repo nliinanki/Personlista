@@ -167,11 +167,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonRegisterController.cs" />
-    <Compile Include="Database\FakeDatabase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\PersonRegister\Commands\Create.cs" />
+    <Compile Include="Models\PersonRegister\Commands\Read.cs" />
     <Compile Include="Models\PersonRegister\Commands\Save.cs" />
     <Compile Include="Models\PersonRegister\Data\CreateRequest.cs" />
     <Compile Include="Models\PersonRegister\Data\PersonRegisterListData.cs" />

@@ -31,7 +31,7 @@ namespace Personlista.ViewModel
         /// <summary>
         /// PersonList
         /// </summary>
-        public List<Database.Person> PersonList { get; set; }
+        public List<Person> PersonList { get; set; }
 
         /// <summary>
         /// Count of results in list

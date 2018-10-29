@@ -15,7 +15,7 @@ namespace Personlista.Models
             /// <summary>
             /// List of persons 
             /// </summary>
-            public List<Database.Person> Persons { get; set; }
+            public List<Person> Persons { get; set; }
 
             /// <summary>
             /// Count of the found persons in list

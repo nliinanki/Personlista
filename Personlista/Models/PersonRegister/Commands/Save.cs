@@ -1,7 +1,4 @@
-﻿using Personlista.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 
@@ -12,12 +9,12 @@ namespace Personlista.Models
         /// <summary>
         /// Save to file
         /// </summary>
-        private static void Save(CreatedPerson person)
+        public static void Save(CreateRequest createRequest)
         {
-            var arrayOfPersons = FakeDatabase.ReadXmlFile();
+            var arrayOfPersons = XmlFileData.ReadXmlFile();
 
             //Create new id
-            var personId = arrayOfPersons.Persons.Count() +1;
+            var personId = arrayOfPersons.Persons.Count() + 1;
 
             //Get file
             var path = HttpContext.Current.Server.MapPath("/Content/Files/personer.xml");
@@ -25,33 +22,19 @@ namespace Personlista.Models
             XElement root = new XElement("ArrayOfPerson");
 
             //Add new person
-            doc.Root.Add(
-                new XElement("Person", 
-                    new XElement("ID", personId),
-                    new XElement("Firstname", person.FirstName),
-                    new XElement("Lastname", person.LastName),
-                    new XElement("Socialnumber", person.PersonNumber),
-                    new XElement("PersonCategory", person.PersonType)
-                    ));
-            doc.Save(path);
-        }
-
-        /// <summary>
-        /// Save many
-        /// </summary>
-        public static void SaveAllNew(CreateRequest createRequest)
-        {
             foreach (var person in createRequest.ListOfPersons)
             {
-                Save(person);
+                doc.Root.Add(
+                    new XElement("Person",
+                        new XElement("ID", personId),
+                        new XElement("Firstname", person.FirstName),
+                        new XElement("Lastname", person.LastName),
+                        new XElement("Socialnumber", person.PersonNumber),
+                        new XElement("PersonCategory", person.PersonType)
+                        ));
+                doc.Save(path);
             }
-
         }
-
-        public static void SaveOneNew(CreateRequest createRequest)
-        {
-            Save(createRequest.CreatedPerson);
-        }
-
     }
+
 }

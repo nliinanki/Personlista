@@ -1,11 +1,4 @@
-﻿using Personlista.Database;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Xml.Linq;
-using System.Xml.Serialization;
+﻿using System.Linq;
 
 namespace Personlista.Models
 {
@@ -22,7 +15,7 @@ namespace Personlista.Models
             var result = new PersonRegisterListData();
 
             //Get data
-            var arrayOfPersons = FakeDatabase.ReadXmlFile();
+            var arrayOfPersons = XmlFileData.ReadXmlFile();
             var personList = arrayOfPersons.Persons.Where(x => 
                 !string.IsNullOrEmpty(x.Firstname) &&
                 !string.IsNullOrEmpty(x.Lastname) && 

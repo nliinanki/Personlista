@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace Personlista.Database
+namespace Personlista.Models
 {
     [XmlRoot(ElementName = "ArrayOfPerson")]
     public class ArrayOfPerson
@@ -18,7 +17,7 @@ namespace Personlista.Database
     public class Person
     {
         [XmlElement(ElementName = "ID")]
-        public int Id { get; set;}
+        public int Id { get; set; }
 
         [XmlElement(ElementName = "Firstname")]
         public string Firstname { get; set; }
@@ -33,7 +32,7 @@ namespace Personlista.Database
         public string PersonCategory { get; set; }
     }
 
-    public static class FakeDatabase
+    public static class XmlFileData
     {
         /// <summary>
         /// Get data from xml file

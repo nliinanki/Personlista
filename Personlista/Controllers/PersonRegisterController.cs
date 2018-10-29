@@ -59,7 +59,18 @@ namespace Personlista.Controllers
         [HttpPost]
         public ActionResult SavePerson(CreateRequest createRequest)
         {
-            PersonRegister.SaveOneNew(createRequest);
+            createRequest.ListOfPersons = new List<CreatedPerson>()
+            {
+                new CreatedPerson
+                {
+                  FirstName = createRequest.CreatedPerson.FirstName,
+                  LastName = createRequest.CreatedPerson.LastName,
+                  PersonNumber = createRequest.CreatedPerson.PersonNumber,
+                  PersonType = createRequest.CreatedPerson.PersonType
+                }
+            };
+
+            PersonRegister.Save(createRequest);
 
             var viewData = GetPersonListViewData(new SearchRequest());
             return PartialView("PersonRegisterListResult", viewData);
@@ -71,12 +82,12 @@ namespace Personlista.Controllers
         /// <returns></returns>
         [HttpPost]
         public ActionResult SaveAllNewPersons(CreateRequest createRequests)
-        {            
-            PersonRegister.SaveAllNew(createRequests);
+        {
+            PersonRegister.Save(createRequests);
 
             var viewData = GetPersonListViewData(new SearchRequest());
             return PartialView("PersonRegisterListResult", viewData);
         }
-         
+
     }
 }
